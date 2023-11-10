@@ -13,7 +13,7 @@ from pathlib import Path
 bl_info = {
     "name": "Shadow the Hedgehog Animation",
     "author": "Psycrow",
-    "version": (0, 1, 1),
+    "version": (0, 1, 0),
     "blender": (2, 81, 0),
     "location": "File > Import-Export",
     "description": "Import / Export Shadow the Hedgehog Animation (.bon, .mtn, .STHanim)",
@@ -74,12 +74,7 @@ class ImportSTHMtn(bpy.types.Operator, ImportHelper):
 
     def execute(self, context):
         from . import import_sth_mtn
-
-        files_dir = Path(self.filepath)
-        for selection in self.files:
-            file_path = Path(files_dir.parent, selection.name)
-            if file_path.suffix.lower() in (".mtn", ".STHanim"):
-                import_sth_mtn.load(context, file_path, self.bake_action)
+        import_sth_mtn.load(context, self.filepath, self.bake_action)
 
         return {'FINISHED'}
 
